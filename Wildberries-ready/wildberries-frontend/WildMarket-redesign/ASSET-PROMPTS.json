@@ -1,0 +1,42 @@
+{
+  "tool": "image_gen.imagegen",
+  "postprocessing": "Resize and encode transparent WebP at quality 85; 1000px hero, 512px category assets.",
+  "assets": [
+    {
+      "file": "public/illustrations/hero.webp",
+      "prompt": "Create a premium ecommerce decorative 3D still life, square canvas, transparent background. Large soft sage green shopping bag, pastel peach rounded pedestal, cream over-ear headphones, a simple dark screen smartphone, tiny sage leaf plant, warm ivory spherical props. Sculptural smooth matte clay materials, realistic restrained soft contact shadows, warm studio lighting, sophisticated quiet editorial aesthetic. Composition centered with generous clear margins, no words no letters no branding no interface no price tags. Crisp recognizable objects, intended displayed on charcoal #252825 background. This is a standalone hero illustration, not a UI screenshot."
+    },
+    {
+      "file": "public/illustrations/smartphones.webp",
+      "prompt": "A single isolated ecommerce category illustration: two modern smartphones, one front with dark blank screen and one peach back. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/perfume.webp",
+      "prompt": "A single isolated ecommerce category illustration: elegant clear amber perfume bottle with cream cap and a small peach perfume bottle. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/books.webp",
+      "prompt": "A single isolated ecommerce category illustration: stack of three cream, sage and peach hardcover books with no text. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/appliances.webp",
+      "prompt": "A single isolated ecommerce category illustration: recognizable cream front loading washing machine. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/laptops.webp",
+      "prompt": "A single isolated ecommerce category illustration: open sage silver laptop with plain dark screen. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/headphones.webp",
+      "prompt": "A single isolated ecommerce category illustration: large cream and peach over-ear headphones. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/beauty.webp",
+      "prompt": "A single isolated ecommerce category illustration: sage cosmetic pump bottle, cream skincare tube and peach lipstick. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    },
+    {
+      "file": "public/illustrations/sports.webp",
+      "prompt": "A single isolated ecommerce category illustration: sage dumbbell, peach basketball and rolled cream yoga mat. Premium 3D rendered smooth matte clay objects, rounded yet realistic recognizable silhouettes. Quiet warm studio lighting, soft contact shadow. Palette sage green, warm ivory, pastel peach, muted lavender. Square canvas, centered full object with 12 percent clear margins, transparent background. No text, no labels, no logos, no interface. Consistent refined editorial product illustration intended for a pastel category tile."
+    }
+  ]
+}
