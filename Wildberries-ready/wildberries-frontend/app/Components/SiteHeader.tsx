@@ -1,6 +1,7 @@
+import ShoppingHeaderLinks from "./ShoppingHeaderLinks";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { LogIn, Search, ShoppingBag, UserPlus } from "lucide-react";
+import { LogIn, Search, ShoppingBag, UserPlus, UserRound, } from "lucide-react";
 
 import LogoutButton from "./LogoutButton";
 import StoreNavigation from "./StoreNavigation";
@@ -54,8 +55,17 @@ export default async function SiteHeader() {
                 <StoreNavigation />
 
                 <div className="store-account-area">
+                    <ShoppingHeaderLinks />
+
                     {isLoggedIn ? (
-                        <LogoutButton />
+                        <>
+                            <Link href="/account" className="store-account-link">
+                                <UserRound size={18} aria-hidden="true" />
+                                <span>Account</span>
+                            </Link>
+
+                            <LogoutButton />
+                        </>
                     ) : (
                         <>
                             <Link

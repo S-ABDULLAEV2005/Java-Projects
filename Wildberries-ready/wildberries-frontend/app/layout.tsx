@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import { cookies } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import SiteFooter from "./Components/SiteFooter";
 import SiteHeader from "./Components/SiteHeader";
+import ShoppingProvider from "./Components/ShoppingProvider";
 
 import "./globals.css";
 import "./storefront.css";
@@ -22,32 +25,37 @@ export const metadata: Metadata = {
         default: "WildMarket",
         template: "%s | WildMarket",
     },
-    description:
-        "Discover products from WildMarket and AlifShop.",
+    description: "Discover products from WildMarket and AlifShop.",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
+export default async function RootLayout({
+                                             children,
+                                         }: Readonly<{
+    children: ReactNode;
 }>) {
+    const cookieStore = await cookies();
+
+    const isLoggedIn = Boolean(
+        cookieStore.get("access_token")?.value,
+    );
+
     return (
         <html lang="en">
         <body
             className={`${geistSans.variable} ${geistMono.variable}`}
         >
-        <div className="store-app">
-            <SiteHeader />
+        <ShoppingProvider isLoggedIn={isLoggedIn}>
+            <div className="store-app">
+                <SiteHeader />
 
-            <div className="store-page-content">
-                {children}
+                <div className="store-page-content">
+                    {children}
+                </div>
+
+                <SiteFooter />
             </div>
-
-            <SiteFooter />
-        </div>
+        </ShoppingProvider>
         </body>
         </html>
     );
 }
-
-

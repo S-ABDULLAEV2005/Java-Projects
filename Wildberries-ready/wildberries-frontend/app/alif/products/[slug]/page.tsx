@@ -7,6 +7,7 @@ import {
     PackageSearch,
     Star,
 } from "lucide-react";
+import ProductActions from "../../../Components/ProductActions";
 import AlifProductGallery from "../../../Components/AlifProductGallery";
 import { fetchAlif } from "../../../_lib/alif-api";
 import type {
@@ -194,6 +195,14 @@ export default async function AlifProductDetailsPage({ params }: Props) {
                                     </small>
                                 </p>
                             </div>
+                        </div>
+
+                        <div className="shopping-detail-actions">
+                            <ProductActions
+                                marketplace="ALIFSHOP"
+                                productKey={product.slug}
+                                name={product.name}
+                            />
                         </div>
 
                         {product.description && (

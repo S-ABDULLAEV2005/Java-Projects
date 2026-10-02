@@ -1,3 +1,4 @@
+import ProductActions from "./ProductActions";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ImageOff, Star } from "lucide-react";
@@ -87,6 +88,12 @@ export default function AlifProductCard({
                         ? `From ${formatMoney(monthlyPayment)} / month`
                         : "Explore product details"}
                 </p>
+
+                <ProductActions
+                    marketplace="ALIFSHOP"
+                    productKey={product.slug}
+                    name={product.name}
+                />
             </div>
         </article>
     );

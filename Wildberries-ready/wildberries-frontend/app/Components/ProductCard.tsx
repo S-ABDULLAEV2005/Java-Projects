@@ -1,3 +1,4 @@
+import ProductActions from "./ProductActions";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ImageOff, Star } from "lucide-react";
@@ -88,6 +89,13 @@ export default function ProductCard({ product }: { product: Product }) {
                         })} TJS`
                         : "Price unavailable"}
                 </p>
+
+                <ProductActions
+                    marketplace="WILDMARKET"
+                    productKey={String(product.id)}
+                    name={product.name}
+                    available={product.quantity > 0}
+                />
             </div>
         </article>
     );

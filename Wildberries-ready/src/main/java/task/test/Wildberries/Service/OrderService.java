@@ -11,6 +11,7 @@ import task.test.Wildberries.exception.ResourceNotFoundException;
 import task.test.Wildberries.order.Order;
 import task.test.Wildberries.order.OrderRepository;
 import task.test.Wildberries.order.OrderStatus;
+import task.test.Wildberries.order.MyOrderResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -130,5 +131,15 @@ public class OrderService {
             throw new DatabaseOperationException("Failed to delete an order");
         }
 
+    }
+
+    public List<MyOrderResponse> getMyOrders(String username) {
+        return orderRepository
+                .findByCustomer_AppUser_UsernameOrderByOrderDateDescIdDesc(
+                        username
+                )
+                .stream()
+                .map(MyOrderResponse::from)
+                .toList();
     }
 }

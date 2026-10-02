@@ -14,11 +14,15 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final CustomerAccountService customerAccountService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(
+            CustomerService customerService,
+            CustomerAccountService customerAccountService) {
+
         this.customerService = customerService;
+        this.customerAccountService = customerAccountService;
     }
-
     @PostMapping
     public ResponseEntity<CustomerResponse> addCustomer(
             @RequestBody CustomerRequest request) {
@@ -70,6 +74,18 @@ public class CustomerController {
             @PathVariable Long id) {
 
         customerService.deleteCustomer(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    public record LinkAccountRequest(String username) {}
+
+    @PatchMapping("/{id}/account")
+    public ResponseEntity<Void> linkAccount(
+            @PathVariable Long id,
+            @RequestBody LinkAccountRequest request) {
+
+        customerAccountService.linkAccount(id, request.username());
 
         return ResponseEntity.noContent().build();
     }

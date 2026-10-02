@@ -1,3 +1,4 @@
+import ProductActions from "../../Components/ProductActions";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -272,6 +273,14 @@ export default async function ProductDetailsPage({
                                         : "Currently unavailable"}
                                 </span>
                             </div>
+                        </div>
+                        <div className="shopping-detail-actions">
+                            <ProductActions
+                                marketplace="WILDMARKET"
+                                productKey={String(product.id)}
+                                name={product.name}
+                                available={product.quantity > 0}
+                            />
                         </div>
 
                         <div className="store-detail-benefits">

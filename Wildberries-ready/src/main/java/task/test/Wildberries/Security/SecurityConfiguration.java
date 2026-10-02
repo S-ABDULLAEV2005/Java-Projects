@@ -73,6 +73,11 @@ public class SecurityConfiguration {
 
                         .requestMatchers(
                                 HttpMethod.GET,
+                                "/orders/me"
+                        ).hasAnyRole("USER", "ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
                                 "/products/**",
                                 "/categories/**",
                                 "/feedbacks/**"
@@ -81,7 +86,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/orders/customer/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).hasRole("ADMIN")
 
                         .requestMatchers(
                                 HttpMethod.POST,

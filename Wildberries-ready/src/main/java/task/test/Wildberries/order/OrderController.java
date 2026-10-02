@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import task.test.Wildberries.Service.OrderService;
 import task.test.Wildberries.dto.OrderResponse;
 
+import java.security.Principal;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -72,6 +75,18 @@ public class OrderController {
             @PathVariable OrderStatus status) {
 
         return orderService.getOrdersByStatus(status);
+    }
+
+    @GetMapping("/me")
+    public List<MyOrderResponse> getMyOrders(Principal principal) {
+        if (principal == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Please sign in"
+            );
+        }
+
+        return orderService.getMyOrders(principal.getName());
     }
 
     @PatchMapping("/{id}/status")
