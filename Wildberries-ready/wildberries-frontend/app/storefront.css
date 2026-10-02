@@ -376,3 +376,119 @@ input::placeholder, textarea::placeholder { color: #9fa699; opacity: 1; }
 .store-auth-label-row > span { color: var(--muted); font-size: .7rem; }
 .feedback-star { min-width: 40px; min-height: 44px; }
 .store-password-button { min-width: 40px; min-height: 44px; }
+
+
+/* Remove the inner rectangle from login/register inputs */
+.store-auth-input input,
+.store-auth-input input:focus,
+.store-auth-input input:focus-visible {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* Highlight the whole field with a subtle sage border */
+.store-auth-input:focus-within {
+    border-color: #b7cbae;
+    box-shadow: none;
+}
+
+
+/* Keep a visible indicator for keyboard navigation */
+.store-auth-input:has(input:focus-visible) {
+    outline: 2px solid #b7cbae;
+    outline-offset: 3px;
+}
+
+
+/*Username and Password field animation*/
+/* Interactive username and password fields */
+.store-auth-input {
+    position: relative;
+    border: 1px solid #b7cbae40;
+    border-radius: 12px;
+    background: #252825;
+
+    transition:
+            border-color 200ms ease,
+            background-color 200ms ease,
+            transform 200ms ease;
+}
+
+/* Highlight the field and lift it slightly */
+.store-auth-input:focus-within {
+    border-color: #b7cbae;
+    background: #2a3029;
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+/* Animate the username/lock icon */
+.store-auth-input > svg {
+    color: #9fa699;
+    transition:
+            color 200ms ease,
+            transform 200ms ease;
+}
+
+.store-auth-input:focus-within > svg {
+    color: #c8d9c0;
+    transform: translateY(-1px) scale(1.08);
+}
+
+/* Smoothly fade the placeholder */
+.store-auth-input input::placeholder {
+    opacity: 1;
+    transition: opacity 200ms ease;
+}
+
+.store-auth-input input:focus::placeholder {
+    opacity: 0.45;
+}
+
+/* Interactive password visibility button */
+.store-password-button {
+    border-radius: 8px;
+    transition:
+            color 180ms ease,
+            background-color 180ms ease,
+            transform 180ms ease;
+}
+
+.store-password-button:hover {
+    color: #c8d9c0;
+    background: #b7cbae14;
+}
+
+.store-password-button:active {
+    transform: scale(0.94);
+}
+
+/* Preserve keyboard focus */
+.store-auth-input:has(input:focus-visible) {
+    outline: 2px solid #b7cbae;
+    outline-offset: 3px;
+}
+
+/* Hover effects for mouse users */
+@media (hover: hover) {
+    .store-auth-input:hover {
+        border-color: #b7cbae80;
+    }
+
+    .store-auth-input:focus-within:hover {
+        border-color: #b7cbae;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .store-auth-input,
+    .store-auth-input > svg,
+    .store-auth-input input::placeholder,
+    .store-password-button {
+        transition: none;
+        transform: none;
+    }
+}
