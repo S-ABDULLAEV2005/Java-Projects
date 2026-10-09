@@ -9,7 +9,10 @@ public record MyOrderResponse(
         LocalDateTime orderDate,
         OrderStatus status,
         List<ItemResponse> items,
-        BigDecimal total
+        BigDecimal total,
+        PaymentStatus paymentStatus,
+        boolean testPayment,
+        LocalDateTime paidAt
 ) {
 
     public record ItemResponse(
@@ -18,7 +21,8 @@ public record MyOrderResponse(
             Integer quantity,
             BigDecimal unitPrice,
             BigDecimal lineTotal
-    ) {}
+    ) {
+    }
 
     public static MyOrderResponse from(Order order) {
         List<ItemResponse> items = order.getItems()
@@ -43,7 +47,10 @@ public record MyOrderResponse(
                 order.getOrderDate(),
                 order.getStatus(),
                 items,
-                total
+                total,
+                order.getPaymentStatus(),
+                order.isTestPayment(),
+                order.getPaidAt()
         );
     }
 }

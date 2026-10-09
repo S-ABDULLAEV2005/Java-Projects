@@ -1,23 +1,15 @@
 package task.test.Wildberries.order;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import task.test.Wildberries.customer.Customer;
 
 import java.time.LocalDateTime;
-import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,6 +31,20 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(
+            name = "payment_status",
+            nullable = false,
+            length = 20
+    )
+    private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
+
+    @Column(name = "test_payment", nullable = false)
+    private boolean testPayment = false;
+
+    @Column(name = "paid_at")
+    private LocalDateTime paidAt;
+
     @JsonIgnore
     @OneToMany(
             mappedBy = "order",
@@ -51,5 +57,4 @@ public class Order {
         items.add(item);
         item.setOrder(this);
     }
-
 }

@@ -48,7 +48,7 @@ public class Product {/*Long productId, String productName, String productDescri
     private Category category;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private List<Feedback> feedbacks = new ArrayList<>();
 
 }

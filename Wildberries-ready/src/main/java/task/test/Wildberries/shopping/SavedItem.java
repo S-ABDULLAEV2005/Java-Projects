@@ -33,7 +33,7 @@ public class SavedItem {
     @Column(nullable = false, length = 20)
     private Marketplace marketplace;
 
-    // WildMarket: product ID; AlifShop: product slug.
+
     @Column(name = "product_key", nullable = false, length = 255)
     private String productKey;
 
@@ -41,7 +41,7 @@ public class SavedItem {
     @Column(name = "item_type", nullable = false, length = 20)
     private SavedItemType itemType;
 
-    // Favorites always use 1; cart quantities must be positive.
+    
     @Column(nullable = false)
     private Integer quantity = 1;
 }

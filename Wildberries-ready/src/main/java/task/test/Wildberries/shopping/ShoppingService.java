@@ -9,13 +9,14 @@ import org.springframework.web.server.ResponseStatusException;
 import task.test.Wildberries.Security.AppUser;
 import task.test.Wildberries.Security.AppUserRepository;
 import task.test.Wildberries.product.Product;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @Service
 @Transactional
 public class ShoppingService {
-
+    private static final Logger log = LoggerFactory.getLogger(ShoppingService.class);
     private final SavedItemRepository items;
     private final AppUserRepository users;
     private final EntityManager entityManager;
@@ -82,12 +83,17 @@ public class ShoppingService {
             return Long.toString(id);
         }
 
-        // AlifShop keys are slugs, not local product IDs.
+
         return key;
     }
 
     private void validateQuantity(SavedItem item, int quantity) {
         if (quantity < 1 || quantity > 99) {
+            log.warn(
+                    "Cart quantity rejected: itemId={} requested={} reason=outside_allowed_range",
+                    item.getId(),
+                    quantity
+            );
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Quantity must be between 1 and 99"
@@ -110,6 +116,12 @@ public class ShoppingService {
                     ? 0 : product.getQuantity();
 
             if (quantity > stock) {
+                log.warn(
+                        "Cart quantity rejected: itemId={} requested={} available={}",
+                        item.getId(),
+                        quantity,
+                        stock
+                );
                 throw new ResponseStatusException(
                         HttpStatus.CONFLICT,
                         "Requested quantity exceeds available stock"
@@ -140,6 +152,12 @@ public class ShoppingService {
     ) {
         AppUser user = lockedOwner(username);
         String key = validateKey(marketplace, productKey);
+        log.debug(
+                "Saved-item add requested: userId={} marketplace={} itemType={}",
+                user.getId(),
+                marketplace,
+                type
+        );
 
         SavedItem item = items
                 .findByUser_IdAndMarketplaceAndProductKeyAndItemType(
@@ -174,6 +192,12 @@ public class ShoppingService {
             int quantity
     ) {
         SavedItem item = ownedItem(username, itemId);
+        log.debug(
+                "Cart quantity change requested: itemId={} previous={} requested={}",
+                itemId,
+                item.getQuantity(),
+                quantity
+        );
 
         if (item.getItemType() != SavedItemType.CART) {
             throw new ResponseStatusException(
@@ -189,9 +213,17 @@ public class ShoppingService {
     }
 
     public void remove(String username, Long itemId) {
-        items.delete(ownedItem(username, itemId));
-    }
+        SavedItem item = ownedItem(username, itemId);
 
+        log.debug(
+                "Saved-item removal requested: itemId={} marketplace={} itemType={}",
+                item.getId(),
+                item.getMarketplace(),
+                item.getItemType()
+        );
+
+        items.delete(item);
+    }
     private SavedItem ownedItem(String username, Long itemId) {
         AppUser user = lockedOwner(username);
 

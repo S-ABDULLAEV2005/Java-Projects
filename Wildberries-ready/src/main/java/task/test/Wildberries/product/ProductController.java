@@ -1,5 +1,6 @@
 package task.test.Wildberries.product;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import task.test.Wildberries.dto.ProductResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
@@ -121,14 +123,22 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(
+    public ResponseEntity<?> deleteProduct(
             @PathVariable Long id) {
 
-        productService.deleteProduct(id);
+        try {
+            productService.deleteProduct(id);
 
+            return ResponseEntity.noContent().build();
 
-
-        return ResponseEntity.noContent().build();
+        } catch (DataIntegrityViolationException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(Map.of(
+                            "message",
+                            "Cannot delete this product because another related record prevents deletion."
+                    ));
+        }
     }
 
     @PatchMapping("/{id}/image")
@@ -144,7 +154,5 @@ public class ProductController {
 
         return ResponseEntity.ok(response);
     }
-//
-//    @PostMapping("/get/smartphons/alif")
-//    public ResponseEntity<Product>
+
 }

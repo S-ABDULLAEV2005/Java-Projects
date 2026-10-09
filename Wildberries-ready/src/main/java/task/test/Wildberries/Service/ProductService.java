@@ -15,6 +15,8 @@ import task.test.Wildberries.exception.DatabaseOperationException;
 import task.test.Wildberries.exception.ResourceNotFoundException;
 import task.test.Wildberries.product.Product;
 import task.test.Wildberries.product.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ProductService {
 
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
@@ -38,6 +41,7 @@ public class ProductService {
     public ProductResponse addProduct(
             Long categoryId,
             ProductRequest request) {
+        log.info("Creating product: categoryId={}", categoryId);
 
         Category category = categoryRepository
                 .findById(categoryId)
@@ -50,7 +54,12 @@ public class ProductService {
             Product savedProduct = productRepository.save(product);
             return DtoMapper.toProductResponse(savedProduct);
         } catch (Exception exception) {
-            throw new DatabaseOperationException("Failed to add a product");
+            DatabaseOperationException failure =
+                    new DatabaseOperationException("Failed to add a product");
+
+            failure.initCause(exception);
+
+            throw failure;
         }
 
     }
@@ -71,10 +80,22 @@ public class ProductService {
 
 
     public ProductResponse getProductById(Long id) {
+        log.debug("Loading product: productId={}", id);
+
         Product product = productRepository
                 .findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Product with ID: " + id + " was not found"));
+                .orElseThrow(() -> {
+                    log.warn(
+                            "Product lookup failed: productId={} was not found",
+                            id
+                    );
 
+                    return new ResourceNotFoundException(
+                            "Product with ID: " + id + " was not found"
+                    );
+                });
+
+        log.debug("Product loaded: productId={}", id);
 
         return DtoMapper.toProductResponse(product);
     }
@@ -113,6 +134,11 @@ public class ProductService {
             Long id,
             Long categoryId,
             ProductRequest request) {
+        log.info(
+                "Updating product: productId={} categoryId={}",
+                id,
+                categoryId
+        );
 
         Product existingProduct = productRepository
                 .findById(id)
@@ -135,25 +161,29 @@ public class ProductService {
             Product savedProduct = productRepository.save(existingProduct);
 
             return DtoMapper.toProductResponse(savedProduct);
-        }catch(Exception exception){
+        } catch (Exception exception) {
+            DatabaseOperationException failure =
+                    new DatabaseOperationException("Failed to update product");
 
-            throw new DatabaseOperationException("Failed to update product");
+            failure.initCause(exception);
+
+            throw failure;
         }
     }
 
     @Transactional
     public void deleteProduct(Long id) {
-        if (!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product with ID: " + id + " was not found");
-        }
+        log.info("Deleting product: productId={}", id);
+        Product product = productRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Product with ID: " + id + " was not found"
+                        )
+                );
 
-        try {
-
-            productRepository.deleteById(id);
-        } catch (Exception exception) {
-            throw new DatabaseOperationException("Failed to delete a product");
-        }
-
+        productRepository.delete(product);
+        productRepository.flush();
     }
 
     public Page<ProductResponse> getProductWithPagination(int page,int size, String sortBy, String direction){
