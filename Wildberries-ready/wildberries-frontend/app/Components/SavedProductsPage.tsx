@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import ShoppingPageHeading from "./ShoppingPageHeading";
 import SavedProductsList from "./SavedProductsList";
-
+import FavoriteCollections from "./FavoriteCollections";
 type SavedItem = {
     id: number;
     marketplace: "WILDMARKET" | "ALIFSHOP";
@@ -137,7 +137,11 @@ export default async function SavedProductsPage({
 
             <ShoppingPageHeading type={type} />
 
-            <SavedProductsList type={type} details={details} />
+            {type === "favorites" ? (
+                <FavoriteCollections details={details} />
+            ) : (
+                <SavedProductsList type="cart" details={details} />
+            )}
         </main>
     );
 }

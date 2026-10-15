@@ -1,6 +1,7 @@
 import CategoryCard from "./Components/CategoryCard";
 import DecorativeArt from "./Components/DecorativeArt";
 import Link from "next/link";
+import StudioHero from "./Components/StudioHero";
 import {
     ArrowRight,
     Grid2X2,
@@ -12,7 +13,7 @@ import {
 
 import ProductCard from "./Components/ProductCard";
 import type { Category, Product } from "./_types/product";
-
+import ShopTheScene from "./Components/ShopTheScene";
 async function loadCollection<T>(path: string): Promise<T[] | null> {
     const backendUrl = process.env.BACKEND_URL;
 
@@ -45,6 +46,16 @@ export default async function HomePage() {
 
     return (
         <main className="store-home store-home-refined">
+            <StudioHero
+                products={products.slice(0, 10).map(
+                    ({ id, name, price, imageUrl }) => ({
+                        id,
+                        name,
+                        price,
+                        imageUrl,
+                    }),
+                )}
+            />
             <section className="store-hero">
                 <div className="store-hero-overlay" aria-hidden="true" />
 
@@ -162,7 +173,7 @@ export default async function HomePage() {
                     </div>
                 )}
             </section>
-
+            <ShopTheScene products={products} />
             <section
                 className="store-marketplaces"
                 aria-label="Explore marketplaces"

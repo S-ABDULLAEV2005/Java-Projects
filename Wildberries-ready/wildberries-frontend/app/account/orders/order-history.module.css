@@ -1,0 +1,373 @@
+.history {
+    min-width: 0;
+}
+
+.filters {
+    padding: clamp(18px, 3vw, 28px);
+    margin-bottom: 32px;
+    background: var(--surface, #2b312b);
+    border: 1px solid var(--border, #ffffff20);
+    border-radius: 22px;
+}
+
+.filters h2 {
+    font-size: 20px;
+    margin: 0 0 20px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.form label {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    color: var(--ivory, #f6efdf);
+    font-size: 13px;
+}
+
+.form input,
+.form select {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--border, #ffffff20);
+    border-radius: 12px;
+    background: var(--background, #232723);
+    color: var(--ivory, #f6efdf);
+    font: inherit;
+    color-scheme: dark;
+}
+
+.form input:focus-visible,
+.form select:focus-visible,
+.history :is(a, button):focus-visible {
+    outline: 2px solid var(--sage, #bed2b2);
+    outline-offset: 3px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+}
+
+.quick {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border, #ffffff20);
+}
+
+.quick a {
+    padding: 8px 12px;
+    border: 1px solid var(--border, #ffffff20);
+    border-radius: 999px;
+    color: var(--sage, #bed2b2);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.quick a:hover {
+    background: var(--surface-raised, #343d34);
+}
+
+.groups {
+    display: grid;
+    gap: 32px;
+}
+
+.day {
+    margin: 0 0 14px;
+    color: var(--sage, #bed2b2);
+    font-size: 16px;
+}
+
+.payment {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding-block: 12px;
+    color: var(--muted, #b8c0b2);
+    font-size: 13px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.pagination > span {
+    color: var(--muted, #b8c0b2);
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 540px) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+
+    .actions > * {
+        flex: 1;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pagination > span:empty {
+        display: none;
+    }
+}
+/* Expandable order cards */
+
+.orderCard {
+    padding: clamp(18px, 3vw, 26px);
+    background: var(--surface, #2b312b);
+    border: 1px solid var(--border, #ffffff20);
+    border-radius: 20px;
+    transition: border-color 180ms ease;
+}
+
+.orderCard[data-open="true"] {
+    border-color: rgb(190 210 178 / 48%);
+}
+
+.cardHeading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.orderIcon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: #d9e8d0;
+    color: #283525;
+}
+
+.orderIdentity {
+    flex: 1;
+    min-width: 120px;
+}
+
+.orderIdentity h3 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.orderIdentity p {
+    margin: 0;
+    color: var(--muted, #b8c0b2);
+    font-size: 12px;
+}
+
+.statusBadge {
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #dcd1e9;
+    color: #44364f;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.statusBadge[data-status="DELIVERED"],
+.statusBadge[data-status="CONFIRMED"] {
+    background: #d9e8d0;
+    color: #283525;
+}
+
+.statusBadge[data-status="SHIPPED"] {
+    background: #e9dfa8;
+    color: #5c5126;
+}
+
+.statusBadge[data-status="CANCELLED"] {
+    background: #efcfba;
+    color: #66382a;
+}
+
+.cardOverview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.cardOverview > span {
+    color: var(--muted, #b8c0b2);
+    font-size: 13px;
+}
+
+.cardOverview > div {
+    display: grid;
+    gap: 6px;
+}
+
+.cardOverview small {
+    color: var(--muted, #b8c0b2);
+    font-size: 11px;
+}
+
+.cardOverview strong {
+    color: var(--ivory, #f6efdf);
+    font-size: 20px;
+    font-variant-numeric: tabular-nums;
+}
+
+.paymentSummary {
+    margin: 14px 0 0;
+    color: var(--muted, #b8c0b2);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.expandButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 18px;
+    padding: 12px 0 0;
+    background: transparent;
+    color: var(--sage, #bed2b2);
+    border: 0;
+    border-top: 1px solid var(--border, #ffffff20);
+    font-size: 13px;
+}
+
+.expandButton svg {
+    transition: transform 220ms ease;
+}
+
+.expandButton[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.detailsGrid {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+            grid-template-rows 240ms ease,
+            visibility 0s 240ms;
+}
+
+.orderCard[data-open="true"] .detailsGrid {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition:
+            grid-template-rows 240ms ease,
+            visibility 0s;
+}
+
+.detailsClip {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.detailsBody {
+    padding-top: 16px;
+}
+
+.itemList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.itemList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border, #ffffff20);
+}
+
+.itemList li > div {
+    display: grid;
+    gap: 7px;
+    min-width: 0;
+}
+
+.itemList strong {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.itemList span {
+    font-size: 12px;
+    color: var(--muted, #b8c0b2);
+}
+
+.itemList li > strong {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.snapshotNote {
+    margin: 18px 0 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--muted, #b8c0b2);
+}
+
+.quick a {
+    transition:
+            background-color 180ms ease,
+            border-color 180ms ease,
+            color 180ms ease;
+}
+
+.quick a[aria-current="true"] {
+    background: var(--sage, #bed2b2);
+    color: var(--ink, #232723);
+    border-color: transparent;
+}
+
+@media (max-width: 540px) {
+    .itemList li {
+        flex-wrap: wrap;
+    }
+
+    .statusBadge {
+        margin-left: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .detailsGrid,
+    .orderCard[data-open="true"] .detailsGrid,
+    .expandButton svg,
+    .orderCard,
+    .quick a {
+        transition: none;
+    }
+}

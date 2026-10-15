@@ -73,9 +73,9 @@ public class SecurityConfiguration {
 
                         .requestMatchers(
                                 HttpMethod.GET,
-                                "/orders/me"
+                                "/orders/me",
+                                "/orders/me/history"
                         ).hasAnyRole("USER", "ADMIN")
-
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/products/**",

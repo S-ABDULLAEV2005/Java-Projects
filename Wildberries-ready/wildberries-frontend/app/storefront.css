@@ -1544,3 +1544,1360 @@ input::placeholder, textarea::placeholder { color: #9fa699; opacity: 1; }
         margin-left: 44px;
     }
 }
+
+/* Unified header navigation */
+.store-header a:is(
+    [href="/products"],
+    [href="/categories"],
+    [href="/alif"],
+    [href="/favorites"],
+    [href="/cart"],
+    [href="/account"]
+) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    font-family: var(--font-geist-sans), sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0 !important;
+
+    color: #e8e5da !important;
+    background: transparent;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: none;
+
+    transition:
+            background-color 180ms ease,
+            border-color 180ms ease,
+            transform 180ms ease;
+}
+
+/* Prevent inner text from using different fonts or weights */
+.store-header a:is(
+    [href="/products"],
+    [href="/categories"],
+    [href="/alif"],
+    [href="/favorites"],
+    [href="/cart"],
+    [href="/account"]
+) :is(span, strong) {
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    color: inherit !important;
+}
+
+/* Consistent icon dimensions */
+.store-header a:is(
+    [href="/products"],
+    [href="/categories"],
+    [href="/alif"],
+    [href="/favorites"],
+    [href="/cart"],
+    [href="/account"]
+) svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
+}
+
+/* Restrained hover effect */
+@media (hover: hover) {
+    .store-header a:is(
+        [href="/products"],
+        [href="/categories"],
+        [href="/alif"],
+        [href="/favorites"],
+        [href="/cart"],
+        [href="/account"]
+    ):hover {
+        background: rgb(184 204 167 / 10%);
+        border-color: rgb(184 204 167 / 22%);
+        color: #d5e4c9 !important;
+        transform: translateY(-1px);
+    }
+}
+
+/* Current page, when the link has aria-current="page" */
+.store-header a:is(
+    [href="/products"],
+    [href="/categories"],
+    [href="/alif"],
+    [href="/favorites"],
+    [href="/cart"],
+    [href="/account"]
+)[aria-current="page"] {
+    background: rgb(184 204 167 / 16%);
+    border-color: rgb(184 204 167 / 30%);
+    color: #d5e4c9 !important;
+}
+
+/* Visible keyboard focus */
+.store-header a:is(
+    [href="/products"],
+    [href="/categories"],
+    [href="/alif"],
+    [href="/favorites"],
+    [href="/cart"],
+    [href="/account"]
+):focus-visible {
+    outline: 2px solid #b8cca7;
+    outline-offset: 3px;
+}
+
+/* Comfortable mobile spacing */
+@media (max-width: 700px) {
+    .store-header a:is(
+        [href="/products"],
+        [href="/categories"],
+        [href="/alif"],
+        [href="/favorites"],
+        [href="/cart"],
+        [href="/account"]
+    ) {
+        padding: 8px 10px;
+        font-size: 13px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .store-header a:is(
+        [href="/products"],
+        [href="/categories"],
+        [href="/alif"],
+        [href="/favorites"],
+        [href="/cart"],
+        [href="/account"]
+    ) {
+        transition: none;
+        transform: none !important;
+    }
+}
+
+/* Modern account dashboard */
+.account-page {
+    --account-surface: #2b302b;
+    --account-border: #424b40;
+    --account-ivory: #f5efdf;
+    --account-muted: #b2b8ac;
+    --account-sage: #b8cca7;
+
+    width: min(1080px, calc(100% - 40px));
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 0 64px;
+    color: var(--account-ivory);
+}
+
+.account-page .shopping-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    color: var(--account-muted);
+    transition: color 180ms ease;
+}
+
+.account-page .shopping-back-link:hover {
+    color: var(--account-sage);
+}
+
+.account-page .account-heading {
+    margin-bottom: 24px;
+}
+
+.account-page .account-heading > p,
+.account-page .account-dashboard-heading > div > p,
+.account-page .account-orders-heading > div > p {
+    margin: 0 0 8px;
+    color: var(--account-sage);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.account-page .account-heading h1 {
+    margin: 0;
+    color: var(--account-ivory);
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.15;
+}
+
+/* Profile */
+.account-page .account-profile {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 34px;
+    padding: 24px;
+    background: var(--account-surface);
+    border: 1px solid var(--account-border);
+    border-radius: 20px;
+}
+
+.account-page .account-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: var(--account-sage);
+    color: #273023;
+}
+
+.account-page .account-profile-copy {
+    min-width: 0;
+}
+
+.account-page .account-profile-copy > span {
+    color: var(--account-muted);
+    font-size: 13px;
+}
+
+.account-page .account-profile-copy h2 {
+    margin: 5px 0 0;
+    color: var(--account-ivory);
+    font-size: 24px;
+    overflow-wrap: anywhere;
+}
+
+.account-page .account-signout {
+    margin-left: auto;
+}
+
+/* Section heading and refresh */
+.account-dashboard {
+    margin-bottom: 38px;
+}
+
+.account-dashboard-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.account-dashboard-heading h2 {
+    margin: 0;
+    color: var(--account-ivory);
+    font-size: 24px;
+}
+
+.account-refresh-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid var(--account-border);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--account-ivory);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition:
+            background-color 180ms ease,
+            border-color 180ms ease;
+}
+
+.account-refresh-button:hover:not(:disabled) {
+    background: rgb(184 204 167 / 10%);
+    border-color: var(--account-sage);
+}
+
+.account-refresh-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.account-refresh-spinning {
+    animation: account-spin 1s linear infinite;
+}
+
+.account-dashboard-error {
+    padding: 14px 16px;
+    border: 1px solid #785047;
+    border-radius: 12px;
+    background: #442f29;
+    color: #f0d2c8;
+    font-size: 14px;
+}
+
+/* Shortcut cards */
+.account-page .account-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+}
+
+.account-page .account-shortcut {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--account-border);
+    border-radius: 20px;
+    background: var(--account-surface);
+    color: var(--account-ivory);
+    text-decoration: none;
+    box-shadow: none;
+    transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background-color 180ms ease;
+}
+
+.account-shortcut-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.account-page .account-shortcut-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+    border-radius: 15px;
+    background: var(--account-sage);
+    color: #2c3427;
+}
+
+.account-page .account-shortcut-icon.is-peach {
+    background: #edcdbd;
+    color: #664737;
+}
+
+.account-page .account-shortcut-icon.is-lavender {
+    background: #ddd1e9;
+    color: #51435e;
+}
+
+.account-page .account-shortcut-icon.is-yellow {
+    background: #e9dfab;
+    color: #62582e;
+}
+
+.account-shortcut-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 34px;
+    padding: 5px 11px;
+    border: 1px solid var(--account-border);
+    border-radius: 11px;
+    color: var(--account-ivory);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.account-admin-label {
+    padding: 6px 10px;
+    border-radius: 9px;
+    background: rgb(233 223 171 / 10%);
+    color: #e9dfab;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.account-page .account-shortcut h2 {
+    margin: 0 0 8px;
+    color: var(--account-ivory);
+    font-family: var(--font-geist-sans), sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.account-page .account-shortcut > p {
+    margin: 0 0 22px;
+    color: var(--account-muted);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.account-page .account-shortcut-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: auto;
+    color: var(--account-sage);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.account-shortcut-action svg {
+    transition: transform 180ms ease;
+}
+
+@media (hover: hover) {
+    .account-page .account-shortcut:hover {
+        transform: translateY(-3px);
+        border-color: #819176;
+        background: #30362f;
+    }
+
+    .account-shortcut:hover .account-shortcut-action svg {
+        transform: translate(2px, -2px);
+    }
+}
+
+/* Order history */
+.account-page .account-orders {
+    margin-top: 0;
+}
+
+.account-page .account-orders-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.account-page .account-orders-heading h2 {
+    margin: 0;
+    color: var(--account-ivory);
+    font-size: 24px;
+}
+
+.account-page .account-orders-heading > span {
+    color: var(--account-muted);
+    font-size: 13px;
+}
+
+#account-orders-title {
+    scroll-margin-top: 110px;
+}
+
+.account-page .account-orders-empty {
+    padding: 30px;
+    border: 1px dashed var(--account-border);
+    border-radius: 20px;
+    background: var(--account-surface);
+}
+
+.account-page .account-orders-empty h3 {
+    margin: 0 0 10px;
+    color: var(--account-ivory);
+    font-size: 18px;
+}
+
+.account-page .account-orders-empty p {
+    margin: 0;
+    color: var(--account-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.account-page .account-orders-list {
+    display: grid;
+    gap: 16px;
+}
+
+.account-page .account-order-card {
+    padding: 24px;
+    border: 1px solid var(--account-border);
+    border-radius: 20px;
+    background: var(--account-surface);
+}
+
+.account-page .account-order-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.account-page .account-order-row h3 {
+    margin: 0 0 8px;
+    color: var(--account-ivory);
+    font-size: 18px;
+}
+
+.account-page .account-order-row p {
+    margin: 0;
+    color: var(--account-muted);
+    font-size: 13px;
+}
+
+.account-page .account-order-status {
+    padding: 7px 11px;
+    border-radius: 10px;
+    background: rgb(184 204 167 / 12%);
+    color: var(--account-sage);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.account-page .account-order-items {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.account-page .account-order-items li {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--account-border);
+}
+
+.account-page .account-order-items li > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.account-page .account-order-items strong {
+    color: var(--account-ivory);
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.account-page .account-order-items span {
+    color: var(--account-muted);
+    font-size: 13px;
+}
+
+.account-page .account-order-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.account-page .account-order-total > span {
+    color: var(--account-muted);
+    font-size: 14px;
+}
+
+.account-page .account-order-total > strong {
+    color: var(--account-ivory);
+    font-size: 18px;
+    font-variant-numeric: tabular-nums;
+}
+
+.account-page .account-order-legacy {
+    color: var(--account-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Keyboard interaction */
+.account-page :is(a, button):focus-visible {
+    outline: 2px solid var(--account-sage);
+    outline-offset: 4px;
+}
+
+/* Subtle entrance */
+.account-page .account-profile,
+.account-dashboard,
+.account-page .account-orders {
+    animation: account-enter 300ms ease both;
+}
+
+@keyframes account-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes account-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .account-page {
+        width: calc(100% - 32px);
+        padding-top: 28px;
+    }
+
+    .account-page .account-shortcuts {
+        grid-template-columns: 1fr;
+    }
+
+    .account-page .account-profile {
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .account-page .account-signout {
+        margin-left: 0;
+        width: 100%;
+        padding-top: 4px;
+    }
+
+    .account-page .account-shortcut,
+    .account-page .account-order-card {
+        padding: 20px;
+    }
+
+    .account-page .account-order-items li {
+        flex-wrap: wrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .account-page .account-profile,
+    .account-dashboard,
+    .account-page .account-orders,
+    .account-refresh-spinning {
+        animation: none;
+    }
+
+    .account-page .account-shortcut,
+    .account-shortcut-action svg,
+    .account-refresh-button,
+    .account-page .shopping-back-link {
+        transition: none;
+    }
+
+    .account-page .account-shortcut:hover,
+    .account-shortcut:hover .account-shortcut-action svg {
+        transform: none;
+    }
+}
+
+/* Keep page width stable when the scrollbar appears */
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: auto;
+}
+
+/* Keep the footer at the bottom on short pages */
+.store-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+}
+
+.store-page-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.store-app > footer {
+    flex-shrink: 0;
+}
+
+/* Reserve space while the next page loads */
+.store-status-loading {
+    min-height: 65vh;
+    min-height: 65svh;
+}
+
+/* Keep navigation buttons stationary */
+.store-header a,
+.store-header button {
+    transition-property:
+            color,
+            background-color,
+            border-color,
+            box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+}
+
+.store-header a:hover,
+.store-header a:active,
+.store-header button:hover,
+.store-header button:active {
+    transform: none !important;
+}
+
+/* Active navigation should not change text width */
+.store-navigation-link,
+.store-navigation-link:hover,
+.store-navigation-link.is-active {
+    font-weight: 650;
+}
+/* START: WildMarket calm motion upgrade */
+
+/* The same logo component in the header and footer. */
+
+.wildmarket-logo {
+    display: inline-block;
+    width: clamp(168px, 16vw, 218px);
+    max-width: 100%;
+    vertical-align: middle;
+    line-height: 0;
+}
+
+.wildmarket-logo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.wildmarket-logo text {
+    font-family: var(--font-geist-sans), Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -3px;
+}
+
+.wildmarket-logo-wild {
+    fill: var(--ivory, #f6efdf);
+}
+
+.wildmarket-logo-market {
+    fill: var(--sage, #bed2b2);
+}
+
+.wildmarket-logo-handle {
+    stroke: var(--sage, #bed2b2);
+}
+
+.store-footer-brand-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.store-footer-brand-copy small {
+    margin: 0;
+}
+
+.store-footer-brand {
+    max-width: 100%;
+}
+
+/* Button feedback without shifting positions. */
+
+.store-app :is(
+    button,
+    .store-primary-button,
+    .store-secondary-button,
+    .store-outline-button,
+    .store-catalog-hero-button,
+    .alif-store-button,
+    .shopping-page-link,
+    .store-footer-catalog-link
+) {
+    transition:
+            background-color 180ms ease,
+            color 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+}
+
+.store-app button:active:not(:disabled) {
+    box-shadow: inset 0 0 0 2px rgb(246 239 223 / 18%);
+}
+
+/* Cards highlight gently; photos zoom inside their frames. */
+
+.store-app :is(
+    .store-product-card,
+    .alif-store-product,
+    .account-shortcut
+) {
+    transition:
+            border-color 220ms ease,
+            box-shadow 220ms ease;
+}
+
+.store-app :is(
+    .store-product-image,
+    .alif-store-product-image
+) {
+    overflow: hidden;
+}
+
+.store-app :is(
+    .store-product-photo,
+    .alif-store-product-photo
+) {
+    transition: transform 380ms cubic-bezier(.22, 1, .36, 1);
+    transform-origin: center;
+}
+
+/* Footer links get an animated underline. */
+
+.store-footer-column a {
+    position: relative;
+    transition: color 180ms ease;
+}
+
+.store-footer-column a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: var(--sage);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
+}
+
+.store-footer-column a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product,
+        .account-shortcut
+    ):hover {
+        border-color: rgb(190 210 178 / 45%);
+        box-shadow: 0 8px 22px rgb(0 0 0 / 12%);
+    }
+
+    .store-app :is(
+        .store-product-image,
+        .alif-store-product-image
+    ):hover :is(
+        .store-product-photo,
+        .alif-store-product-photo
+    ) {
+        transform: scale(1.035);
+    }
+
+    .store-footer-column a:hover::after {
+        transform: scaleX(1);
+    }
+}
+
+/* Stop legacy hover movement on navigation and shopping controls. */
+
+.store-app :is(
+    .store-header a,
+    .store-header button,
+    .shopping-saved-row,
+    .shopping-rich-row,
+    .shopping-quantity,
+    .shopping-quantity button,
+    .shopping-remove,
+    .shopping-save-favorite,
+    .account-shortcut,
+    .category-tile
+):is(:hover, :active) {
+    transform: none !important;
+    translate: none !important;
+}
+
+/* Respect the user's reduced-motion preference. */
+
+@media (prefers-reduced-motion: reduce) {
+    .store-app :is(
+        button,
+        a,
+        .store-product-card,
+        .alif-store-product,
+        .account-shortcut,
+        .store-product-photo,
+        .alif-store-product-photo
+    ),
+    .store-footer-column a::after {
+        transition: none !important;
+    }
+
+    .store-app :is(
+        .store-product-image,
+        .alif-store-product-image
+    ):hover :is(
+        .store-product-photo,
+        .alif-store-product-photo
+    ) {
+        transform: none !important;
+    }
+}
+
+/* END: WildMarket calm motion upgrade */
+
+/* START: Mobile layout repair */
+
+@media (max-width: 700px) {
+    /* Header: logo, account controls, then search. */
+
+    .store-app .store-header .store-container.store-header-main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        padding-block: 12px;
+        min-width: 0;
+    }
+
+    .store-app .store-header .store-header-main > .store-brand {
+        order: 1;
+        justify-self: start;
+    }
+
+    .store-app .store-header .store-header-main .store-account-area {
+        order: 2;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: stretch;
+        width: 100%;
+        margin: 0;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .store-app .store-header .store-account-area .shopping-header-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-column: span 2;
+        width: auto;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .store-app .store-header .store-account-area :is(
+        .shopping-header-links > a,
+        .shopping-header-links > button,
+        .store-account-link,
+        .header-logout-button,
+        .store-signin-link,
+        .store-register-link
+    ) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+        min-width: 0;
+        min-height: 54px;
+        margin: 0;
+        padding: 7px 4px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .store-app .store-header .store-account-area :is(
+        .shopping-header-links > a,
+        .shopping-header-links > button,
+        .store-account-link
+    ) > span {
+        display: inline;
+        font-size: 12px !important;
+    }
+
+    .store-app .store-header .store-account-area .store-signin-link small {
+        display: none;
+    }
+
+    .store-app .store-header .store-header-search-slot {
+        order: 3;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .store-app .store-header .store-header-main .store-desktop-navigation {
+        display: none;
+    }
+
+    .store-app .store-header .store-mobile-navigation {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 8px 16px;
+    }
+
+    .store-app .store-header .store-mobile-navigation .store-navigation-link {
+        justify-content: center;
+        min-width: 0;
+        gap: 5px;
+        padding: 10px 4px;
+        font-size: 12px !important;
+    }
+
+    /* Product cards: consistent typography and spacing. */
+
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product
+    ) {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .store-app :is(
+        .store-product-content,
+        .alif-store-product-copy
+    ) {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+        padding: 16px;
+    }
+
+    .store-app :is(
+        .store-product-title-link h2,
+        .alif-store-product-name h2
+    ) {
+        font-size: 18px;
+        line-height: 1.4;
+        min-height: 2.8em;
+        margin: 0 0 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .store-app :is(
+        .store-product-meta,
+        .alif-store-product-source
+    ) {
+        margin: 0 0 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .store-app :is(
+        .store-product-rating-row,
+        .alif-store-product-rating
+    ) {
+        min-height: 22px;
+        gap: 6px;
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+
+    .store-app :is(
+        .store-card-price,
+        .alif-store-product-price
+    ) {
+        color: var(--ivory);
+        font-size: 20px;
+        font-weight: 650;
+        line-height: 1.4;
+        margin: 12px 0;
+        font-variant-numeric: tabular-nums;
+        overflow-wrap: anywhere;
+    }
+
+    /* Secondary actions occupy equal columns. */
+
+    .store-app .store-card-discovery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin: auto 0 12px;
+        padding-top: 12px;
+    }
+
+    .store-app .store-card-discovery > button {
+        width: 100%;
+        min-width: 0;
+        min-height: 44px;
+        margin: 0;
+        padding: 10px 6px;
+        gap: 5px;
+        font-size: 12px;
+        line-height: 1.3;
+        white-space: normal;
+    }
+
+    .store-app .store-card-discovery > button svg {
+        flex-shrink: 0;
+    }
+
+    /* Primary action and favorite button stay together. */
+
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product
+    ) .shopping-action-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px;
+        gap: 8px;
+    }
+
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product
+    ) .shopping-cart-button {
+        width: 100%;
+        min-width: 0;
+        min-height: 44px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product
+    ) .shopping-heart-button {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+    }
+
+    /* Reserve feedback space so short messages don't move the buttons. */
+
+    .store-app :is(
+        .store-product-card,
+        .alif-store-product
+    ) .shopping-action-message {
+        display: block;
+        min-height: 3.4em;
+        margin: 8px 0 0;
+        font-size: 12px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 520px) {
+    .store-app :is(
+        .store-product-grid,
+        .alif-store-product-grid
+    ) {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .store-app :is(
+        .store-product-image,
+        .alif-store-product-image
+    ) {
+        aspect-ratio: 4 / 3;
+    }
+
+    .store-app :is(
+        .store-product-photo,
+        .alif-store-product-photo
+    ) {
+        padding: 20px;
+    }
+}
+
+/* END: Mobile layout repair */
+
+/* START: Simple shopping header */
+
+.store-app .store-header.wm-clean-header .store-container.store-header-main {
+    display: grid;
+    grid-template-columns: auto minmax(160px, 1fr) auto;
+    align-items: center;
+    gap: 16px 24px;
+    padding-block: 14px;
+}
+
+.store-app .store-header.wm-clean-header .store-header-main > .store-brand {
+    order: 0;
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.store-app .store-header.wm-clean-header .store-brand .wildmarket-logo {
+    width: clamp(150px, 16vw, 205px);
+}
+
+.store-app .store-header.wm-clean-header .store-header-main > .store-header-search-slot {
+    order: 0;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+}
+
+.store-app .store-header.wm-clean-header .store-header-main .store-account-area {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    order: 0;
+    grid-column: 3;
+    grid-row: 1;
+    width: auto;
+    margin: 0;
+    gap: 8px;
+    min-width: 0;
+}
+
+.store-app .store-header.wm-clean-header .store-account-area .shopping-header-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: auto;
+    gap: 8px;
+}
+
+.store-app .store-header.wm-clean-header .store-header-main .store-desktop-navigation {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    order: 0;
+    justify-content: center;
+}
+
+.store-app .store-header.wm-clean-header .store-mobile-navigation {
+    display: none;
+}
+
+/* Compact utility controls without large boxes. */
+
+.store-app .store-header.wm-clean-header .store-account-area :is(
+    .shopping-header-links > a,
+    .shopping-header-links > button,
+    .store-account-link
+) {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    width: auto;
+    margin: 0;
+    padding: 10px;
+    gap: 7px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: var(--ivory);
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+}
+
+.store-app .store-header.wm-clean-header .store-account-area :is(
+    .shopping-header-links > a,
+    .shopping-header-links > button,
+    .store-account-link
+) svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1000px) {
+    .store-app .store-header.wm-clean-header .store-account-area :is(
+        .shopping-header-links > a,
+        .shopping-header-links > button,
+        .store-account-link
+    ) > span {
+        display: none;
+    }
+
+    .store-app .store-header.wm-clean-header .store-account-area .store-register-link {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    /* Row 1: logo and three utility icons. */
+
+    .store-app .store-header.wm-clean-header .store-container.store-header-main {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        width: calc(100% - 24px);
+        padding-block: 10px;
+    }
+
+    .store-app .store-header.wm-clean-header .store-brand .wildmarket-logo {
+        width: clamp(132px, 40vw, 168px);
+    }
+
+    .store-app .store-header.wm-clean-header .store-header-main .store-account-area {
+        grid-column: 2;
+        grid-row: 1;
+        gap: 0;
+    }
+
+    .store-app .store-header.wm-clean-header .store-account-area .shopping-header-links {
+        gap: 0;
+    }
+
+    .store-app .store-header.wm-clean-header .store-account-area :is(
+        .shopping-header-links > a,
+        .shopping-header-links > button,
+        .store-account-link
+    ) {
+        width: 40px;
+        min-width: 40px;
+        min-height: 44px;
+        padding: 8px;
+        border: 0;
+        background: transparent;
+    }
+
+    /* Row 2: full-width search. */
+
+    .store-app .store-header.wm-clean-header .store-header-main > .store-header-search-slot {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .store-app .store-header.wm-clean-header .store-header-main .store-desktop-navigation {
+        display: none;
+    }
+
+    /* Row 3: primary shopping destinations. */
+
+    .store-app .store-header.wm-clean-header .store-mobile-navigation {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px 12px;
+        border-top: 1px solid var(--border);
+    }
+
+    .store-app .store-header.wm-clean-header .store-mobile-navigation .store-navigation-link {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        min-width: 0;
+        min-height: 44px;
+        padding: 8px 4px;
+        gap: 6px;
+        font-size: 12px !important;
+    }
+
+    .store-app .store-header.wm-clean-header .store-mobile-navigation .store-navigation-link span {
+        white-space: nowrap;
+    }
+}
+
+/* END: Simple shopping header */

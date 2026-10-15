@@ -20,24 +20,36 @@ export type SavedItem = {
 };
 
 type ShoppingContextValue = {
+    isLoggedIn: boolean;
     cart: SavedItem[];
     favorites: SavedItem[];
     ready: boolean;
     loadError: string;
+
     reload: () => Promise<void>;
+
     addToCart: (
         marketplace: Marketplace,
         productKey: string,
     ) => Promise<void>;
+
     toggleFavorite: (
         marketplace: Marketplace,
         productKey: string,
     ) => Promise<void>;
+
     removeItem: (id: number) => Promise<void>;
-    setQuantity: (id: number, quantity: number) => Promise<void>;
+
+    restoreCart: (item: SavedItem) => Promise<void>;
+
+    setQuantity: (
+        id: number,
+        quantity: number,
+    ) => Promise<void>;
 };
 
-const ShoppingContext = createContext<ShoppingContextValue | null>(null);
+const ShoppingContext =
+    createContext<ShoppingContextValue | null>(null);
 
 async function api<T>(
     path: string,
@@ -46,15 +58,23 @@ async function api<T>(
 ): Promise<T> {
     const response = await fetch(`/api/shopping/${path}`, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: body === undefined ? undefined : JSON.stringify(body),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body:
+            body === undefined
+                ? undefined
+                : JSON.stringify(body),
         cache: "no-store",
     });
 
     if (!response.ok) {
         if (response.status === 401) {
             window.location.assign("/login");
-            throw new Error("Your session is no longer valid. Please sign in again.");
+
+            throw new Error(
+                "Your session is no longer valid. Please sign in again.",
+            );
         }
 
         const data = await response.json().catch(() => null);
@@ -66,7 +86,10 @@ async function api<T>(
         );
     }
 
-    if (response.status === 204) return undefined as T;
+    if (response.status === 204) {
+        return undefined as T;
+    }
+
     return response.json();
 }
 
@@ -118,11 +141,15 @@ export default function ShoppingProvider({
     async function addToCart(
         marketplace: Marketplace,
         productKey: string,
-    ) {
-        const item = await api<SavedItem>("cart", "POST", {
-            marketplace,
-            productKey,
-        });
+    ): Promise<void> {
+        const item = await api<SavedItem>(
+            "cart",
+            "POST",
+            {
+                marketplace,
+                productKey,
+            },
+        );
 
         setCart((current) => [
             ...current.filter((entry) => entry.id !== item.id),
@@ -130,9 +157,13 @@ export default function ShoppingProvider({
         ]);
     }
 
-    async function removeItem(id: number) {
+    async function removeItem(id: number): Promise<void> {
         await api<void>(`items/${id}`, "DELETE");
-        setCart((current) => current.filter((item) => item.id !== id));
+
+        setCart((current) =>
+            current.filter((item) => item.id !== id),
+        );
+
         setFavorites((current) =>
             current.filter((item) => item.id !== id),
         );
@@ -141,7 +172,7 @@ export default function ShoppingProvider({
     async function toggleFavorite(
         marketplace: Marketplace,
         productKey: string,
-    ) {
+    ): Promise<void> {
         const existing = favorites.find(
             (item) =>
                 item.marketplace === marketplace &&
@@ -153,10 +184,14 @@ export default function ShoppingProvider({
             return;
         }
 
-        const item = await api<SavedItem>("favorites", "POST", {
-            marketplace,
-            productKey,
-        });
+        const item = await api<SavedItem>(
+            "favorites",
+            "POST",
+            {
+                marketplace,
+                productKey,
+            },
+        );
 
         setFavorites((current) => [
             ...current.filter((entry) => entry.id !== item.id),
@@ -164,7 +199,35 @@ export default function ShoppingProvider({
         ]);
     }
 
-    async function setQuantity(id: number, quantity: number) {
+    async function restoreCart(
+        item: SavedItem,
+    ): Promise<void> {
+        const restored = await api<SavedItem>(
+            "cart/restore",
+            "POST",
+            {
+                marketplace: item.marketplace,
+                productKey: item.productKey,
+                quantity: item.quantity,
+            },
+        );
+
+        setCart((current) => [
+            ...current.filter(
+                (entry) =>
+                    !(
+                        entry.marketplace === restored.marketplace &&
+                        entry.productKey === restored.productKey
+                    ),
+            ),
+            restored,
+        ]);
+    }
+
+    async function setQuantity(
+        id: number,
+        quantity: number,
+    ): Promise<void> {
         const updated = await api<SavedItem>(
             `cart/${id}`,
             "PATCH",
@@ -172,13 +235,16 @@ export default function ShoppingProvider({
         );
 
         setCart((current) =>
-            current.map((item) => (item.id === id ? updated : item)),
+            current.map((item) =>
+                item.id === id ? updated : item,
+            ),
         );
     }
 
     return (
         <ShoppingContext.Provider
             value={{
+                isLoggedIn,
                 cart,
                 favorites,
                 ready,
@@ -187,6 +253,7 @@ export default function ShoppingProvider({
                 addToCart,
                 toggleFavorite,
                 removeItem,
+                restoreCart,
                 setQuantity,
             }}
         >
@@ -199,7 +266,9 @@ export function useShopping() {
     const context = useContext(ShoppingContext);
 
     if (!context) {
-        throw new Error("ShoppingProvider is missing from layout.");
+        throw new Error(
+            "ShoppingProvider is missing from layout.",
+        );
     }
 
     return context;

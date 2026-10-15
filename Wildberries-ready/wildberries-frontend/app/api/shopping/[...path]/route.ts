@@ -13,10 +13,19 @@ async function forward(request: NextRequest, context: Context) {
     const allowed =
         ((method === "GET" || method === "POST") &&
             (endpoint === "cart" || endpoint === "favorites")) ||
-        (method === "POST" && endpoint === "checkout") ||
+        (method === "POST" &&
+            (
+                endpoint === "checkout" ||
+                endpoint === "cart/restore"
+            )) ||
         (method === "PATCH" && /^cart\/\d+$/.test(endpoint)) ||
-        (method === "DELETE" && /^items\/\d+$/.test(endpoint));
-
+        (method === "DELETE" && /^items\/\d+$/.test(endpoint)) ||
+        ((method === "GET" || method === "POST") &&
+            endpoint === "collections") ||
+        ((method === "PATCH" || method === "DELETE") &&
+            /^collections\/\d+$/.test(endpoint)) ||
+        ((method === "PUT" || method === "DELETE") &&
+            /^collections\/\d+\/items\/\d+$/.test(endpoint));
     if (!allowed) {
         return NextResponse.json(
             { message: "Route not found" },
@@ -82,5 +91,6 @@ async function forward(request: NextRequest, context: Context) {
 
 export const GET = forward;
 export const POST = forward;
+export const PUT = forward;
 export const PATCH = forward;
 export const DELETE = forward;

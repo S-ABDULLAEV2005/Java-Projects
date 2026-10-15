@@ -1,0 +1,396 @@
+.discovery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.discovery > button {
+    width: 100%;
+    margin: 0;
+    min-width: 0;
+}
+
+.trigger,
+.clear,
+.remove,
+.chip button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 1px solid #bed2b240;
+    border-radius: 12px;
+    background: #bed2b20a;
+    color: var(--ivory, #f6efdf);
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.trigger {
+    min-height: 42px;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.trigger:hover,
+.selected {
+    background: #bed2b225;
+    border-color: #bed2b280;
+    color: #bed2b2;
+}
+
+.trigger:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+.primary,
+.secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-height: 42px;
+    padding: 10px 16px;
+    border-radius: 12px;
+
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.primary {
+    background: #bed2b2;
+    color: #263027;
+    border: 1px solid #bed2b2;
+    font-weight: 600;
+}
+
+.secondary {
+    background: #ffffff05;
+    color: #f6efdf;
+    border: 1px solid #ffffff20;
+}
+
+.clear {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.trigger:focus-visible,
+.bar :is(button, a):focus-visible,
+.toolbar :is(button, input):focus-visible,
+.scroll:focus-visible,
+.table :is(button, a):focus-visible,
+.empty a:focus-visible {
+    outline: 2px solid #bed2b2;
+    outline-offset: 3px;
+}
+
+.spacer {
+    height: 150px;
+}
+
+.bar {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+
+    width: min(1100px, calc(100% - 32px));
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 16px;
+    border: 1px solid #bed2b240;
+    border-radius: 20px;
+
+    background: #2b312bf5;
+    backdrop-filter: blur(16px);
+    color: #f6efdf;
+    box-shadow: 0 12px 50px #00000050;
+
+    animation: compare-enter 220ms ease-out;
+}
+
+.barTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 13px;
+    color: #bed2b2;
+}
+
+.chips {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 0;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    border: 1px solid #ffffff18;
+    background: #ffffff05;
+    border-radius: 10px;
+
+    padding: 4px 5px 4px 10px;
+}
+
+.chip > span {
+    max-width: 125px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.chip button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.barActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.waiting {
+    font-size: 12px;
+    color: #b8c0b2;
+}
+
+.message {
+    width: 100%;
+    font-size: 12px;
+    margin: 0;
+    color: var(--muted, #b8c0b2);
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin: 24px 0 14px;
+}
+
+.toolbar label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.toolbar input {
+    width: 18px;
+    height: 18px;
+    accent-color: #bed2b2;
+}
+
+.scroll {
+    overflow-x: auto;
+    margin-top: 18px;
+    border: 1px solid #ffffff20;
+    border-radius: 22px;
+}
+
+.table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface, #2b312b);
+}
+
+.table th,
+.table td {
+    padding: 20px;
+    border-bottom: 1px solid #ffffff14;
+    border-right: 1px solid #ffffff14;
+
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+}
+
+.table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+
+    width: 150px;
+    background: var(--surface, #2b312b);
+}
+
+.table thead th {
+    position: relative;
+    width: 240px;
+}
+
+.table td {
+    color: var(--muted, #b8c0b2);
+    min-width: 210px;
+}
+
+.table tr:last-child td,
+.table tr:last-child th {
+    border-bottom: 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: 0;
+}
+
+.different td {
+    background: #bed2b20b;
+}
+
+.image {
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    height: 160px;
+    margin: 30px 0 16px;
+    border-radius: 16px;
+
+    background: #cbdcc7;
+    color: #52604d;
+}
+
+.image img {
+    object-fit: contain;
+    padding: 14px;
+}
+
+.productName {
+    display: block;
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--ivory, #f6efdf);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.details {
+    display: inline-block;
+    margin-top: 12px;
+    color: #bed2b2;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.remove {
+    position: absolute;
+    right: 16px;
+    top: 14px;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+}
+
+.empty {
+    padding: 28px;
+    background: var(--surface, #2b312b);
+    border: 1px solid #ffffff20;
+    border-radius: 22px;
+}
+
+.empty h2 {
+    margin-bottom: 12px;
+}
+
+.empty a {
+    margin: 8px 8px 0 0;
+}
+
+.note {
+    font-size: 12px;
+    margin: 20px 0;
+    color: var(--muted, #b8c0b2);
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+@keyframes compare-enter {
+    from {
+        opacity: 0;
+        translate: 0 12px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .bar {
+        bottom: max(8px, env(safe-area-inset-bottom));
+        width: calc(100% - 16px);
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .chips {
+        display: none;
+    }
+
+    .barActions {
+        margin-left: auto;
+    }
+
+    .bar .message {
+        max-height: 38px;
+        overflow-y: auto;
+        font-size: 11px;
+    }
+
+    .table th,
+    .table td {
+        padding: 14px;
+    }
+
+    .table th:first-child {
+        width: 110px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bar {
+        animation: none;
+    }
+}

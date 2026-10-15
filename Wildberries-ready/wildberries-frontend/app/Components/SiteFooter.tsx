@@ -1,18 +1,19 @@
 import Link from "next/link";
-import { ArrowUpRight, ShoppingBag } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import WildMarketLogo from "./WildMarketLogo";
 
 export default function SiteFooter() {
     return (
         <footer className="store-footer">
             <div className="store-container store-footer-grid">
                 <div className="store-footer-intro">
-                    <Link href="/" className="store-footer-brand">
-                        <span className="store-brand-icon">
-                            <ShoppingBag size={22} aria-hidden="true" />
-                        </span>
-
-                        <span>
-                            <strong>WildMarket</strong>
+                    <Link
+                        href="/"
+                        className="store-footer-brand"
+                        aria-label="WildMarket homepage"
+                    >
+                        <span className="store-footer-brand-copy">
+                            <WildMarketLogo />
                             <small>Find your next favorite.</small>
                         </span>
                     </Link>

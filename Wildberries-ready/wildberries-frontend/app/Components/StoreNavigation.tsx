@@ -28,7 +28,9 @@ export default function StoreNavigation({
         >
             {navigation.map(({ name, href, icon: Icon }) => {
                 const active =
-                    pathname === href || pathname.startsWith(`${href}/`);
+                    pathname === href ||
+                    pathname.startsWith(`${href}/`) ||
+                    (href === "/products" && pathname === "/finder");
 
                 return (
                     <Link

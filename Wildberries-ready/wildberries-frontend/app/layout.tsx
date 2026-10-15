@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
-
+import CompareBar from "./Components/CompareBar";
 import SiteFooter from "./Components/SiteFooter";
 import SiteHeader from "./Components/SiteHeader";
 import ShoppingProvider from "./Components/ShoppingProvider";
 
+
 import "./globals.css";
 import "./storefront.css";
+import "./motion.css";
+import "./studio.css";
+import StudioMotion from "./Components/StudioMotion";
+
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -45,13 +50,14 @@ export default async function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable}`}
         >
         <ShoppingProvider isLoggedIn={isLoggedIn}>
-            <div className="store-app">
+            <div className="store-app" data-design="studio">
+                <StudioMotion />
                 <SiteHeader />
 
                 <div className="store-page-content">
                     {children}
                 </div>
-
+                <CompareBar />
                 <SiteFooter />
             </div>
         </ShoppingProvider>
