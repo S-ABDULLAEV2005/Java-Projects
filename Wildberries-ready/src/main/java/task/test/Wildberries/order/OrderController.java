@@ -113,4 +113,32 @@ public class OrderController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/me/history")
+    public OrderHistoryResponse getMyOrderHistory(
+            Principal principal,
+            @RequestParam(defaultValue = "") String from,
+            @RequestParam(defaultValue = "") String to,
+            @RequestParam(defaultValue = "") String q,
+            @RequestParam(defaultValue = "") String status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        if (principal == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Please sign in"
+            );
+        }
+
+        return orderService.getMyOrderHistory(
+                principal.getName(),
+                from,
+                to,
+                q,
+                status,
+                page,
+                size
+        );
+    }
 }

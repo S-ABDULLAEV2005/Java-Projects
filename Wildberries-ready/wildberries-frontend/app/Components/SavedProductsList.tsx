@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
     Heart,
     ImageOff,
@@ -58,9 +58,13 @@ function ProductThumbnail({
 export default function SavedProductsList({
                                               type,
                                               details,
+                                              favoriteIds,
+                                              renderCollectionControls,
                                           }: {
     type: "cart" | "favorites";
     details: SavedProductDetails[];
+    favoriteIds?: number[];
+    renderCollectionControls?: (itemId: number) => ReactNode;
 }) {
     const shopping = useShopping();
     const router = useRouter();
@@ -68,23 +72,33 @@ export default function SavedProductsList({
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
-    const items = type === "cart" ? shopping.cart : shopping.favorites;
+    const items = type === "cart"
+        ? shopping.cart
+        : shopping.favorites.filter((item) =>
+            favoriteIds === undefined ||
+            favoriteIds.includes(item.id),
+        );
     const detailMap = new Map(details.map((item) => [item.id, item]));
 
     async function run(
         action: () => Promise<void>,
         successMessage: string,
+        refreshPage = true,
     ) {
-        if (busy) return;
-
         setBusy(true);
         setError("");
         setMessage("");
 
         try {
             await action();
-            setMessage(successMessage);
-            router.refresh();
+
+            if (successMessage) {
+                setMessage(successMessage);
+            }
+
+            if (refreshPage) {
+                router.refresh();
+            }
         } catch (failure) {
             setError(
                 failure instanceof Error
@@ -170,10 +184,16 @@ export default function SavedProductsList({
                     <h2>
                         {type === "cart"
                             ? "Your cart is empty"
-                            : "No favorites yet"}
+                            : favoriteIds !== undefined
+                                ? "This collection is empty"
+                                : "No favorites yet"}
                     </h2>
 
-                    <p>Browse products to start your collection.</p>
+                    <p>
+                        {favoriteIds !== undefined
+                            ? "Open All favorites to add products to this collection."
+                            : "Browse products to start your collection."}
+                    </p>
 
                     <Link href="/products" className="shopping-page-link">
                         Browse products
@@ -314,7 +334,8 @@ export default function SavedProductsList({
                                                                 item.id,
                                                                 decreasedQuantity,
                                                             ),
-                                                            "Quantity updated.",
+                                                            "",
+                                                            false,
                                                         )}
                                                     >
                                                         <Minus
@@ -340,7 +361,8 @@ export default function SavedProductsList({
                                                                 item.id,
                                                                 item.quantity + 1,
                                                             ),
-                                                            "Quantity updated.",
+                                                            "",
+                                                            false,
                                                         )}
                                                     >
                                                         <Plus
@@ -420,7 +442,8 @@ export default function SavedProductsList({
                                                 </span>
                                             </button>
                                         )}
-
+                                        {type === "favorites" &&
+                                            renderCollectionControls?.(item.id)}
                                         <button
                                             type="button"
                                             className="shopping-remove"

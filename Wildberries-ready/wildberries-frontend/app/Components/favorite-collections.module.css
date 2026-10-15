@@ -1,0 +1,243 @@
+.panel {
+    margin: 24px 0;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid #414a40;
+    border-radius: 24px;
+    background: #292f29;
+    color: #f6efdf;
+}
+
+.heading,
+.listHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.heading h2,
+.listHeading h2 {
+    margin: 0 0 8px;
+    color: #f6efdf;
+    font-size: clamp(20px, 3vw, 26px);
+}
+
+.heading p {
+    margin: 0 0 12px;
+    color: #b3b9ad;
+}
+
+.heading .eyebrow {
+    color: #bed2b2;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+}
+
+.primary,
+.secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+            background-color 160ms ease,
+            border-color 160ms ease;
+}
+
+.primary {
+    background: #bed2b2;
+    color: #232723;
+    border: 1px solid #bed2b2;
+}
+
+.primary:hover:not(:disabled) {
+    background: #cfe0c5;
+}
+
+.secondary {
+    background: #303830;
+    color: #f6efdf;
+    border: 1px solid #53624f;
+}
+
+.secondary:hover:not(:disabled) {
+    background: #3b4738;
+}
+
+.panel button:disabled,
+.actions button:disabled,
+.itemControls button:disabled,
+.itemControls select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.panel button:focus-visible,
+.actions button:focus-visible,
+.itemControls button:focus-visible,
+.editor input:focus-visible,
+.itemControls select:focus-visible {
+    outline: 3px solid #bed2b2;
+    outline-offset: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.card {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    min-height: 150px;
+    border: 3px solid transparent;
+    border-radius: 18px;
+    background: #d9e8d0;
+    color: #253026;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition: border-color 160ms ease;
+}
+
+.card:nth-child(4n + 2) {
+    background: #efcfba;
+}
+
+.card:nth-child(4n + 3) {
+    background: #e9dfa8;
+}
+
+.card:nth-child(4n + 4) {
+    background: #dcd1e9;
+}
+
+.card[aria-pressed="true"] {
+    border-color: #77946b;
+}
+
+.card strong {
+    overflow-wrap: anywhere;
+}
+
+.card span {
+    margin-top: auto;
+    font-size: 13px;
+}
+
+.notice {
+    min-height: 22px;
+    margin: 10px 0;
+    color: #bed2b2;
+}
+
+.error {
+    color: #f2b9a7;
+}
+
+.editor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 0;
+}
+
+.editor label {
+    width: 100%;
+}
+
+.editor input {
+    flex: 1 1 220px;
+    min-width: 0;
+    min-height: 44px;
+    border: 1px solid #718567;
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: #232723;
+    color: #f6efdf;
+    font: inherit;
+}
+
+.confirm {
+    padding: 16px;
+    border: 1px solid #997666;
+    border-radius: 14px;
+}
+
+.confirm p {
+    margin: 0 0 12px;
+}
+
+.confirm button {
+    margin-right: 8px;
+}
+
+.listHeading {
+    margin: 24px 0 16px;
+}
+
+.actions,
+.itemControls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.itemControls {
+    flex-direction: column;
+    max-width: 240px;
+}
+
+.itemControls select {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px;
+    border: 1px solid #718567;
+    border-radius: 12px;
+    background: #303830;
+    color: #f6efdf;
+    font: inherit;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+        padding: 14px;
+        min-height: 135px;
+    }
+
+    .itemControls {
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary,
+    .secondary,
+    .card {
+        transition: none;
+    }
+}
+
+.panel :global(#favorite-collections-title) {
+    scroll-margin-top: 140px;
+}

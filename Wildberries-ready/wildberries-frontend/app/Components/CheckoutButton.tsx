@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LoaderCircle, ShoppingBag } from "lucide-react";
+import Link from "next/link";
+import { LoaderCircle, CreditCard } from "lucide-react";
+
 import { useShopping } from "./ShoppingProvider";
 
 export default function CheckoutButton({
@@ -12,53 +14,79 @@ export default function CheckoutButton({
 }) {
     const router = useRouter();
     const shopping = useShopping();
+
     const [pending, setPending] = useState(false);
+    const [created, setCreated] = useState(false);
     const [error, setError] = useState("");
+
+    const inFlight = useRef(false);
 
     const hasLocalProducts = shopping.cart.some(
         (item) => item.marketplace === "WILDMARKET",
     );
 
     async function placeOrder() {
-        if (pending) return;
+        if (inFlight.current || created) return;
 
+        inFlight.current = true;
         setPending(true);
         setError("");
 
         try {
-            const response = await fetch("/api/shopping/checkout", {
-                method: "POST",
-                credentials: "include",
-                cache: "no-store",
-            });
+            const response = await fetch(
+                "/api/shopping/checkout",
+                {
+                    method: "POST",
+                    credentials: "include",
+                    cache: "no-store",
+                },
+            );
 
             if (response.status === 401) {
-                window.location.assign("/login");
+                router.push("/login");
                 return;
             }
 
-            if (!response.ok) {
-                const data = await response.json().catch(() => null);
+            const data =
+                await response.json().catch(() => null);
 
+            if (!response.ok) {
                 throw new Error(
                     data?.message ||
                     data?.detail ||
-                    `Could not place order (${response.status}).`,
+                    `Could not create order (${response.status}).`,
                 );
             }
 
-            // Checkout succeeded. Reload the cart without retrying checkout.
-            await shopping.reload();
+            setCreated(true);
 
-            router.push("/account?ordered=1");
-            router.refresh();
+            // A cart refresh failure must not repeat checkout.
+            await shopping.reload().catch(() => undefined);
+
+            if (
+                !Number.isSafeInteger(data?.id) ||
+                data.id <= 0
+            ) {
+                throw new Error(
+                    "The order was created, but its response could not be read. Check your order history before creating another order.",
+                );
+            }
+
+            if (data.testPayment !== true) {
+                throw new Error(
+                    `Order #${data.id} was created without test-payment mode. Enable test mode in Spring Boot and restart it. This existing order cannot use the simulator.`,
+                );
+            }
+
+            router.push(`/payment/${data.id}`);
         } catch (failure) {
             setError(
                 failure instanceof Error
                     ? failure.message
-                    : "Could not confirm the order. Check order history before trying again.",
+                    : "Could not confirm checkout. Check order history before trying again.",
             );
         } finally {
+            inFlight.current = false;
             setPending(false);
         }
     }
@@ -71,6 +99,7 @@ export default function CheckoutButton({
                 disabled={
                     disabled ||
                     pending ||
+                    created ||
                     !shopping.ready ||
                     Boolean(shopping.loadError) ||
                     !hasLocalProducts
@@ -84,18 +113,34 @@ export default function CheckoutButton({
                         aria-hidden="true"
                     />
                 ) : (
-                    <ShoppingBag size={18} aria-hidden="true" />
+                    <CreditCard
+                        size={18}
+                        aria-hidden="true"
+                    />
                 )}
 
-                {pending ? "Placing order…" : "Place WildMarket order"}
+                {pending
+                    ? "Preparing checkout…"
+                    : created
+                        ? "Order created"
+                        : "Continue to test payment"}
             </button>
 
             <p>
-                Orders WildMarket items only. AlifShop items stay in
-                your cart. No payment is collected.
+                WildMarket items only. AlifShop items stay in
+                your cart. This is a simulation; no real money
+                is charged.
             </p>
 
-            {error && <p role="alert">{error}</p>}
+            {error && (
+                <div role="alert">
+                    <p>{error}</p>
+
+                    <Link href="/account">
+                        Check your account and orders
+                    </Link>
+                </div>
+            )}
         </div>
     );
 }

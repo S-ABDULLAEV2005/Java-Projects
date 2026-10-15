@@ -1,7 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { Heart, ShoppingCart } from "lucide-react";
+import MiniCart from "./MiniCart";
+import {
+    MiniAccount,
+    MiniFavorites,
+} from "./HeaderPanels";
 
 export default function ShoppingHeaderLinks() {
     return (
@@ -9,15 +12,9 @@ export default function ShoppingHeaderLinks() {
             className="shopping-header-links"
             aria-label="Your shopping"
         >
-            <Link href="/favorites">
-                <Heart size={18} aria-hidden="true" />
-                <span>Favorites</span>
-            </Link>
-
-            <Link href="/cart">
-                <ShoppingCart size={18} aria-hidden="true" />
-                <span>Cart</span>
-            </Link>
+            <MiniFavorites />
+            <MiniCart />
+            <MiniAccount />
         </nav>
     );
 }

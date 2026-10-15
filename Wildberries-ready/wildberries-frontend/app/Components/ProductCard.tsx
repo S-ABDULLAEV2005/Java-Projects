@@ -1,14 +1,19 @@
-import ProductActions from "./ProductActions";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, ImageOff, Star } from "lucide-react";
 
+import ProductActions from "./ProductActions";
+import ProductQuickView from "./ProductQuickView";
 import type { Product } from "../_types/product";
-
+import CompareButton from "./CompareButton";
+import compareStyles from "./product-compare.module.css";
 function calculateRating(product: Product) {
     const ratings = (product.feedbacks ?? [])
         .map((feedback) => Number(feedback.rating))
-        .filter((rating) => Number.isFinite(rating) && rating > 0);
+        .filter(
+            (rating) =>
+                Number.isFinite(rating) && rating > 0,
+        );
 
     if (!ratings.length) return null;
 
@@ -18,7 +23,11 @@ function calculateRating(product: Product) {
     ).toFixed(1);
 }
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+                                        product,
+                                    }: {
+    product: Product;
+}) {
     const rating = calculateRating(product);
     const feedbackCount = product.feedbacks?.length ?? 0;
     const available = product.quantity > 0;
@@ -43,7 +52,10 @@ export default function ProductCard({ product }: { product: Product }) {
                     />
                 ) : (
                     <div className="store-product-image-empty">
-                        <ImageOff size={32} aria-hidden="true" />
+                        <ImageOff
+                            size={32}
+                            aria-hidden="true"
+                        />
                         <span>No image available</span>
                     </div>
                 )}
@@ -56,7 +68,10 @@ export default function ProductCard({ product }: { product: Product }) {
                     {available ? "In stock" : "Out of stock"}
                 </span>
 
-                <span className="store-product-open-icon" aria-hidden="true">
+                <span
+                    className="store-product-open-icon"
+                    aria-hidden="true"
+                >
                     <ArrowUpRight size={18} />
                 </span>
             </Link>
@@ -68,7 +83,10 @@ export default function ProductCard({ product }: { product: Product }) {
                         .join(" · ") || "WildMarket"}
                 </p>
 
-                <Link href={href} className="store-product-title-link">
+                <Link
+                    href={href}
+                    className="store-product-title-link"
+                >
                     <h2>{product.name}</h2>
                 </Link>
 
@@ -78,6 +96,7 @@ export default function ProductCard({ product }: { product: Product }) {
                         fill={rating ? "currentColor" : "none"}
                         aria-hidden="true"
                     />
+
                     <span>{rating ?? "Not rated"}</span>
                     <small>({feedbackCount})</small>
                 </div>
@@ -89,6 +108,49 @@ export default function ProductCard({ product }: { product: Product }) {
                         })} TJS`
                         : "Price unavailable"}
                 </p>
+
+                <div className={`${compareStyles.discovery} store-card-discovery`}>
+                    <ProductQuickView
+                        product={{
+                            marketplace: "WILDMARKET",
+                            productKey: String(product.id),
+                            name: product.name,
+                            href,
+                            imageUrl: product.imageUrl,
+                            price:
+                                Number.isFinite(price) && price >= 0
+                                    ? price
+                                    : null,
+                            rating,
+                            reviewCount: feedbackCount,
+                            category: product.category?.name,
+                            brand: product.brand,
+                            description: product.description,
+                            available,
+                            stock: product.quantity,
+                        }}
+                    />
+
+                    <CompareButton
+                        product={{
+                            marketplace: "WILDMARKET",
+                            productKey: String(product.id),
+                            name: product.name,
+                            imageUrl: product.imageUrl,
+                            price:
+                                Number.isFinite(price) && price >= 0
+                                    ? price
+                                    : null,
+                            rating,
+                            reviewCount: feedbackCount,
+                            brand: product.brand,
+                            category: product.category?.name,
+                            availability: available
+                                ? "IN_STOCK"
+                                : "OUT_OF_STOCK",
+                        }}
+                    />
+                </div>
 
                 <ProductActions
                     marketplace="WILDMARKET"

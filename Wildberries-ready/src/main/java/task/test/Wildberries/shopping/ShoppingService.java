@@ -20,15 +20,18 @@ public class ShoppingService {
     private final SavedItemRepository items;
     private final AppUserRepository users;
     private final EntityManager entityManager;
-
+    private final FavoriteCollectionRepository collections;
     public ShoppingService(
             SavedItemRepository items,
             AppUserRepository users,
-            EntityManager entityManager
+            EntityManager entityManager,
+            FavoriteCollectionRepository collections
+
     ) {
         this.items = items;
         this.users = users;
         this.entityManager = entityManager;
+        this.collections = collections;
     }
 
     private AppUser owner(String username) {
@@ -185,7 +188,58 @@ public class ShoppingService {
         item.setQuantity(quantity);
         return SavedItemResponse.from(items.save(item));
     }
+    public SavedItemResponse restoreCart(
+            String username,
+            Marketplace marketplace,
+            String productKey,
+            int quantity
+    ) {
+        if (quantity < 1 || quantity > 99) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Quantity must be between 1 and 99"
+            );
+        }
 
+        AppUser user = lockedOwner(username);
+        String key = validateKey(marketplace, productKey);
+
+        SavedItem item = items
+                .findByUser_IdAndMarketplaceAndProductKeyAndItemType(
+                        user.getId(),
+                        marketplace,
+                        key,
+                        SavedItemType.CART
+                )
+                .orElse(null);
+
+        int restoredQuantity = quantity;
+
+        if (item == null) {
+            item = new SavedItem();
+            item.setUser(user);
+            item.setMarketplace(marketplace);
+            item.setProductKey(key);
+            item.setItemType(SavedItemType.CART);
+        } else {
+            restoredQuantity += item.getQuantity();
+        }
+
+        validateQuantity(item, restoredQuantity);
+        item.setQuantity(restoredQuantity);
+
+        SavedItem saved = items.save(item);
+
+        log.info(
+                "Cart item restored: userId={} itemId={} restoredQuantity={} totalQuantity={}",
+                user.getId(),
+                saved.getId(),
+                quantity,
+                restoredQuantity
+        );
+
+        return SavedItemResponse.from(saved);
+    }
     public SavedItemResponse updateQuantity(
             String username,
             Long itemId,
@@ -221,6 +275,10 @@ public class ShoppingService {
                 item.getMarketplace(),
                 item.getItemType()
         );
+
+        if (item.getItemType() == SavedItemType.FAVORITE) {
+            collections.deleteMembershipsBySavedItemId(item.getId());
+        }
 
         items.delete(item);
     }

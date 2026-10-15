@@ -188,6 +188,13 @@ export default async function ProductsPage({ searchParams }: Props) {
                             <CheckCircle2 size={16} aria-hidden="true" />
                             {availableResults} available
                         </span>
+                        <Link
+                            href="/finder"
+                            className="store-outline-button"
+                        >
+                            <PackageSearch size={17} aria-hidden="true" />
+                            Find my product
+                        </Link>
 
                         <Link
                             href="/categories"

@@ -1,0 +1,277 @@
+.section {
+    max-width: 1280px;
+    margin: 48px auto;
+    padding: 0 24px;
+    color: #f6efdf;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.heading h2 {
+    margin: 0 0 12px;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: -0.03em;
+}
+
+.heading p {
+    max-width: 620px;
+    margin: 0;
+    color: #b3b9ad;
+    line-height: 1.6;
+}
+
+.heading .eyebrow {
+    color: #bed2b2;
+    margin-bottom: 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.browse {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #bed2b2;
+    text-decoration: none;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.6fr) minmax(300px, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.scene {
+    position: relative;
+    aspect-ratio: 1000 / 620;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #d5dfc7;
+}
+
+.scene > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.hotspot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 48px;
+    min-height: 44px;
+    padding: 6px 9px;
+    border: 2px solid #f6efdf;
+    border-radius: 999px;
+    background: #253b29;
+    color: #f6efdf;
+    box-shadow: 0 3px 14px #253b2940;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+            background-color 160ms ease,
+            box-shadow 160ms ease;
+}
+
+.hotspot:hover {
+    background: #496540;
+    box-shadow: 0 0 0 5px #f6efdf40;
+}
+
+.hotspot:focus-visible {
+    outline: 3px solid #253b29;
+    outline-offset: 4px;
+}
+
+.sceneLabel {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: #f6efdf;
+    color: #253b29;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.note {
+    color: #b3b9ad;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 12px 0 0;
+}
+
+.products {
+    display: grid;
+    gap: 12px;
+}
+
+.product {
+    padding: 16px;
+    background: #292f29;
+    border: 1px solid #414a40;
+    border-radius: 18px;
+}
+
+.productTop {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.number {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #bed2b2;
+    color: #232723;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 72px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f6efdf;
+    color: #53624f;
+}
+
+.photo img {
+    object-fit: contain;
+    padding: 6px;
+}
+
+.copy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.copy small,
+.copy span {
+    color: #b3b9ad;
+    font-size: 12px;
+}
+
+.copy a {
+    color: #f6efdf;
+    text-decoration: none;
+}
+
+.copy h3 {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.copy strong {
+    color: #bed2b2;
+    font-size: 14px;
+}
+
+.explore {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 42px;
+    margin-top: 12px;
+    border: 1px solid #65795a;
+    border-radius: 10px;
+    background: #344330;
+    color: #e4ecd9;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 160ms ease;
+}
+
+.explore:hover {
+    background: #42563b;
+}
+
+.explore:focus-visible,
+.browse:focus-visible,
+.copy a:focus-visible,
+.photo:focus-visible {
+    outline: 3px solid #bed2b2;
+    outline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .products {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .section {
+        padding: 0 16px;
+        margin: 32px auto;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .scene {
+        border-radius: 18px;
+    }
+
+    .sceneLabel {
+        left: 10px;
+        bottom: 10px;
+        padding: 6px 9px;
+        font-size: 10px;
+    }
+
+    .hotspot {
+        gap: 2px;
+        min-width: 44px;
+        padding: 4px 7px;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hotspot,
+    .explore {
+        transition: none;
+    }
+}

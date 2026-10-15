@@ -1,0 +1,159 @@
+.wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+}
+
+.form {
+    width: 100%;
+}
+
+.form button:focus-visible {
+    outline: 3px solid #bed2b2;
+    outline-offset: -3px;
+    border-radius: 8px;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 80;
+    width: max(100%, 380px);
+    max-width: calc(100vw - 32px);
+    padding: 10px;
+    border: 1px solid #52634a;
+    border-radius: 16px;
+    background: #252c25;
+    color: #f6efdf;
+    box-shadow: 0 14px 36px #10171045;
+    animation: appear 160ms ease-out;
+}
+
+.status {
+    margin: 4px 8px 10px;
+    color: #bed2b2;
+    font-size: 12px;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: min(390px, calc(100dvh - 230px));
+    overflow-y: auto;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #f6efdf;
+}
+
+.option:hover,
+.option[aria-selected="true"] {
+    background: #374632;
+}
+
+.photo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 58px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f6efdf;
+    color: #52634a;
+}
+
+.photo img {
+    object-fit: contain;
+    padding: 4px;
+}
+
+.copy {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+.copy strong {
+    font-size: 13px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.copy small {
+    font-size: 11px;
+    color: #b8c4af;
+}
+
+.price {
+    max-width: 105px;
+    color: #d9e8d0;
+    font-size: 12px;
+    text-align: right;
+}
+
+.empty {
+    margin: 10px;
+    font-size: 13px;
+    color: #b8c4af;
+}
+
+.all {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 12px 10px;
+    border-top: 1px solid #46563e;
+    text-decoration: none;
+    color: #bed2b2;
+    font-size: 13px;
+}
+
+.all:focus-visible,
+.option:focus-visible {
+    outline: 3px solid #bed2b2;
+    outline-offset: -3px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    .price {
+        max-width: 85px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dropdown {
+        animation: none;
+    }
+}
